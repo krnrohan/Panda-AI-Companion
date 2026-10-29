@@ -1,0 +1,33 @@
+[package]
+name = "panda-companion"
+version = "0.1.0"
+description = "A private, screen-aware panda companion"
+authors = ["Panda Companion"]
+edition = "2021"
+
+[lib]
+name = "panda_companion_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+base64 = "0.22"
+image = { version = "0.25", default-features = false, features = ["png", "jpeg"] }
+keyring = { version = "3", features = ["apple-native", "windows-native"] }
+reqwest = { version = "0.12", features = ["json", "stream"] }
+scrcap = "0.1.0-alpha.2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tauri = { version = "2", features = [] }
+tauri-plugin-global-shortcut = "2"
+tokio = { version = "1", features = ["time", "sync", "macros", "rt"] }
+
+[target.'cfg(target_os = "windows")'.dependencies]
+windows-capture = "2.0.1"
+windows-sys = { version = "0.60", features = ["Win32_Foundation", "Win32_System_ProcessStatus", "Win32_System_Threading", "Win32_UI_WindowsAndMessaging"] }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+cocoa = "0.26"
+objc = "0.2"
